@@ -7,6 +7,7 @@
     "@discordjs/opus": "latest",
     "@discordjs/voice": "latest",
     "@themondon/discord-player-v13": "^5.2.5",
+    "cleverbot-free": "^2.0.2",
     "discord.js": "^13.14.0",
     "ffmpeg-static": "latest",
     "fs-extra": "^11.2.0",
