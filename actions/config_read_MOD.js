@@ -28,9 +28,8 @@ module.exports = {
 </div>
 
 <div style="float: left; width: 99%; padding-top: 8px;">
-  <span class="dbminputlabel">Store In</span>
   <div style="width: calc(95% - 8px);"> <!-- Adjusted width -->
-    <store-in-variable dropdownLabel="" selectId="storage" variableContainerId="varNameContainer" variableInputId="varName"></store-in-variable>
+    <store-in-variable dropdownLabel="Store In" selectId="message" variableContainerId="varNameContainer" variableInputId="varName"></store-in-variable>
   </div>
 </div>`;
   },
@@ -38,23 +37,35 @@ module.exports = {
   init() {},
 
   async action(cache) {
-    const data = cache.actions[cache.index];
-    const text = this.evalMessage(data.text, cache);
-    const lineNumber = parseInt(this.evalMessage(data.lineNumber, cache), 10);
+    try {
+      const data = cache.actions[cache.index];
+      const text = this.evalMessage(data.text, cache);
+      const lineNumber = parseInt(this.evalMessage(data.lineNumber, cache), 10);
 
-    if (!text || isNaN(lineNumber) || lineNumber < 1)
-      return console.log('Read Specific Line: Invalid input. Please provide a valid text and line number.');
+      if (!text || isNaN(lineNumber) || lineNumber < 1)
+        return console.log('Read Specific Line: Invalid input. Please provide a valid text and line number.');
 
-    const lines = text.split('\n');
+      const lines = text.split('\n');
 
-    if (lineNumber > lines.length)
-      return console.log('Read Specific Line: The specified line number is greater than the total number of lines.');
+      if (lineNumber > lines.length)
+        return console.log('Read Specific Line: The specified line number is greater than the total number of lines.');
 
-    const result = lines[lineNumber - 1];
+      const result = lines[lineNumber - 1];
 
-    const storage = parseInt(data.storage, 10);
-    const varName = this.evalMessage(data.varName, cache);
-    this.storeValue(result, storage, varName, cache);
+      const storage = parseInt(data.storage, 10);
+      const varName = this.evalMessage(data.varName, cache);
+
+      // Check if the 'path' variable is truthy
+      const path = /* Replace this with your condition */ true;
+
+      if (path) {
+        this.storeValue(result, storage, varName, cache);
+      } else {
+        console.log(' ');
+      }
+    } catch (err) {
+      console.error(`ERROR! ${err.stack || err}`);
+    }
     this.callNextAction(cache);
   },
 

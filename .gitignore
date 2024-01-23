@@ -6,3 +6,7 @@ StoredData
 
 Fonts
 data/settings.json
+data/serverVars.json
+data/servers.json
+data/players.json
+
