@@ -38,14 +38,14 @@ module.exports = {
 
     // Check if the variable is a string
     if (typeof variable === "string") {
-      // Define supported image formats (add more if needed)
-      const imageFormats = [".jpg", ".jpeg", ".png", ".gif", ".bmp"];
+      // Define supported image and video formats (add more if needed)
+      const mediaFormats = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".mp4", ".avi", ".mkv", ".mov", ".wmv"];
 
-      // Check if the variable ends with any of the supported image formats
-      const endsWithImageFormat = imageFormats.some(format => variable.toLowerCase().endsWith(format));
+      // Check if the variable ends with any of the supported image or video formats
+      const endsWithMediaFormat = mediaFormats.some(format => variable.toLowerCase().endsWith(format));
 
       // Execute results based on the condition
-      this.executeResults(endsWithImageFormat, data?.branch ?? data, cache);
+      this.executeResults(endsWithMediaFormat, data?.branch ?? data, cache);
     } else {
       // If the variable is not a string, execute results as false
       this.executeResults(false, data?.branch ?? data, cache);
