@@ -24,5 +24,5 @@
     "ytdl-core": "^4.10.0"
   },
   "is-music-bot": true,
-  "nodeVersion": "16.17.0"
+  "nodeVersion": "21.6.2"
 }
