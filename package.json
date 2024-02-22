@@ -13,6 +13,7 @@
     "ffmpeg-static": "latest",
     "fstorm": "latest",
     "jimp": "latest",
+    "loadavg-windows": "^1.1.1",
     "node-cron": "^3.0.3",
     "opentype.js": "^1.3.4",
     "tweetnacl": "latest",
