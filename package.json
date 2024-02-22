@@ -13,6 +13,7 @@
     "ffmpeg-static": "latest",
     "fs-extra": "^11.2.0",
     "fstorm": "latest",
+    "insert-line": "^1.1.0",
     "jimp": "latest",
     "loadavg-windows": "^1.1.1",
     "node-cron": "^3.0.3",
