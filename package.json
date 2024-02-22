@@ -12,8 +12,7 @@
     "ffmpeg-static": "latest",
     "tweetnacl": "latest",
     "youtube-dl-exec": "^2.0.2",
-    "ytdl-core": "^4.10.0",
-    "canvas": "latest"
+    "ytdl-core": "^4.10.0"
   },
   "is-music-bot": true,
   "nodeVersion": "16.17.0"
