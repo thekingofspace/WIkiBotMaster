@@ -8,7 +8,7 @@ module.exports = {
     return `${data.time} ${measurements[parseInt(data.measurement, 10)]}`;
   },
 
-  meta: { version: "1.0.0", author: "Your Name", authorUrl: "Your URL", downloadUrl: "Download URL" },
+  meta: { version: "1.0.1", author: "Your Name", authorUrl: "Your URL", downloadUrl: "Download URL" },
 
   fields: ["time", "measurement"],
 
@@ -77,7 +77,7 @@ module.exports = {
           makeRequestWithRetries(); // Retry the request
         } else {
           // Handle other types of errors
-          console.error(error);
+          console.error("Error:", error);
           this.callNextAction(cache);
         }
       }
