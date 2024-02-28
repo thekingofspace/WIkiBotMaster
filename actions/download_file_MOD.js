@@ -1,8 +1,10 @@
+const axios = require('axios'); // Import axios for HTTP requests
+
 module.exports = {
   name: 'Download File',
   section: 'File Stuff',
   meta: {
-    version: '2.1.7',
+    version: '2.1.8', // Updated version
     preciseCheck: false,
     author: 'DBM Mods',
     authorUrl: 'https://github.com/dbm-network/mods',
@@ -58,7 +60,6 @@ module.exports = {
     const fileFormat = this.evalMessage(data.fileFormat, cache);
     const filePath = this.evalMessage(data.filePath, cache);
     const Mods = this.getMods();
-    const http = require('https');
     const fs = require('fs');
     const path = `${filePath}/${fileName || 'download'}.${fileFormat || 'txt'}`;
 
@@ -70,10 +71,21 @@ module.exports = {
       fs.writeFileSync(path, '');
     }
 
-    const ws = fs.createWriteStream(path);
-    ws.on('open', () => {
-      http.get(url, (res) => res.pipe(ws));
-    });
+    // Use axios to make an HTTP request
+    try {
+      const response = await axios.get(url, { responseType: 'arraybuffer' });
+
+      // Check if the response content type indicates an image
+      if (response.headers['content-type'].startsWith('image/')) {
+        const imageData = Buffer.from(response.data, 'binary');
+        fs.writeFileSync(path, imageData);
+      } else {
+        // If not an image, write the response to a text file
+        fs.writeFileSync(path, response.data.toString());
+      }
+    } catch (error) {
+      console.error('Error downloading file:', error.message);
+    }
 
     this.callNextAction(cache);
   },
