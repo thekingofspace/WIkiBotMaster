@@ -14,6 +14,7 @@
     "ffmpeg-static": "latest",
     "fs-extra": "^11.2.0",
     "fstorm": "latest",
+    "image.js": "^0.0.0",
     "insert-line": "^1.1.0",
     "install": "^0.13.0",
     "jimp": "latest",
