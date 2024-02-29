@@ -21,8 +21,10 @@ module.exports = {
       const temp = {};
       if (event.temp) temp[event.temp] = data;
 
-      Actions.invokeEvent(event, null, temp, () => {
-        waitForNextCheck(events, currentIndex, data);
+      Actions.invokeEvent(event, null, temp, (result) => {
+        if (result) {
+          waitForNextCheck(events, currentIndex, data);
+        }
       });
     };
 
