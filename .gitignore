@@ -9,6 +9,8 @@ data/settings.json
 data/serverVars.json
 data/servers.json
 data/players.json
-
+dashboard-config.json
 
 project.discordbot
+dashboard-config.json
+dashboard-config.json

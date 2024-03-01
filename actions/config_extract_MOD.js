@@ -17,6 +17,7 @@ module.exports = {
     if (parseInt(data.storage, 10) !== varType) return;
     return [data.varName, 'String'];
   },
+
   fields: ['text', 'symbolPair', 'storage', 'varName'],
 
   html() {
@@ -41,11 +42,9 @@ module.exports = {
 </div>
 <br><br><br>
 
-<div style="float: left; width: 99%; padding-top: 8px;">
+<div style="padding-top: 8px;">
   <span class="dbminputlabel">Store In</span>
-  <div style="width: calc(95% - 8px);"> <!-- Adjusted width -->
-    <store-in-variable dropdownLabel="" selectId="storage" variableContainerId="varNameContainer" variableInputId="varName"></store-in-variable>
-  </div>
+  <store-in-variable dropdownLabel="" selectId="storage" variableContainerId="varNameContainer" variableInputId="varName" style="width: 100%;"></store-in-variable>
 </div>
 
 <div style="float: left; width: 99%; padding-top: 8px;">
