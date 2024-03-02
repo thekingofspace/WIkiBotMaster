@@ -33,7 +33,7 @@ module.exports = {
 
 <div>
   <span class="dbminputlabel">Content Title</span>
-  <input id="contentTitle" class="round" type="text">
+ <input id="contentTitle" class="round" type="text" placeholder="Use / to read nested content">
 </div>
 <br>
 
