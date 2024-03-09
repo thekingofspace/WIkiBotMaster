@@ -2,7 +2,7 @@ module.exports = {
   name: 'Attach Image To Embed',
   section: 'Embed Message',
   meta: {
-    version: '2.1.7',
+    version: '2.2.0',
     preciseCheck: false,
     author: 'DBM Mods',
     authorUrl: 'https://github.com/dbm-network/mods',
@@ -11,12 +11,10 @@ module.exports = {
 
   subtitle(data) {
     const array = ['Temp Variable', 'Server Variable', 'Global Variable'];
-    return `Attach (${array[data.imagestorage - 1]} ${data.imagevarName}) to Embed (${array[data.embedstorage - 1]} ${
-      data.embedvarName
-    }) (${data.filename || 'image.png'})`;
+    return `Attach (${array[data.embedstorage - 1]} ${data.embedvarName}) (${data.filename || 'image.png'})`;
   },
 
-  fields: ['embedstorage', 'embedvarName', 'imagestorage', 'imagevarName', 'filename'],
+  fields: ['embedstorage', 'embedvarName', 'imageurls'],
 
   html() {
     return `
@@ -26,18 +24,10 @@ module.exports = {
 <br><br><br>
 
 <div>
-  <store-in-variable dropdownLabel="Image Object to Attach" selectId="imagestorage" variableInputId="imagevarName" variableContainerId="varNameContainer2"></store-in-variable>
-</div>
-<br><br><br>
-
-<div>
-  <span class="dbminputlabel">Image File Name</span>
-  <input id="filename" class="round" type="text" placeholder="image.png"><br>
-</div>
-
-<div>
-  <store-in-variable selectId="storage" variableInputId="varName" variableContainerId="varNameContainer3"></store-in-variable>
+  <span class="dbminputlabel">Image URLs (separate with commas)</span>
+  <textarea id="imageurls" class="round" placeholder="Paste image URLs here"></textarea><br>
 </div>`;
+
   },
 
   init() {},
@@ -50,24 +40,28 @@ module.exports = {
     const embedvarName = this.evalMessage(data.embedvarName, cache);
     const embed = this.getVariable(embedstorage, embedvarName, cache);
 
-    const imagestorage = parseInt(data.imagestorage, 10);
-    const imagevarName = this.evalMessage(data.imagevarName, cache);
-    const image = this.getVariable(imagestorage, imagevarName, cache);
-
-    const filename = data.filename || 'image.png';
+    const imageurls = this.evalMessage(data.imageurls, cache);
+    const imageUrlsArray = imageurls.split(',');
 
     const DBM = this.getDBM();
-    const { Images } = DBM;
+    const { MessageEmbed } = DBM.DiscordJS;
 
-    Images.createBuffer(image).then((buffer) => {
-      const attachment = new DBM.DiscordJS.MessageAttachment(buffer, filename);
-      embed.attachFiles([attachment]);
+    const embedsArray = [];
 
-      const storage = parseInt(data.storage, 10);
-      const varName = Actions.evalMessage(data.varName, cache);
-      Actions.storeValue(embed, storage, varName, cache);
-      this.callNextAction(cache);
-    });
+    for (const imageUrl of imageUrlsArray) {
+      const trimmedImageUrl = imageUrl.trim();
+      if (trimmedImageUrl) {
+        const newEmbed = new MessageEmbed().setImage(trimmedImageUrl);
+        embedsArray.push(newEmbed);
+      }
+    }
+
+    const storage = parseInt(data.storage, 10);
+    const varName = Actions.evalMessage(data.varName, cache);
+
+    Actions.storeValue(embedsArray, storage, varName, cache);
+
+    this.callNextAction(cache);
   },
 
   mod() {},
