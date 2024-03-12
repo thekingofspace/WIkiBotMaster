@@ -77,7 +77,6 @@ module.exports = {
             if (currentContent && currentContent[nestedTitle] !== undefined) {
               currentContent = currentContent[nestedTitle];
             } else {
-              console.warn(`Nested content not found for title "${title}" and content title "${contentTitle}"`);
               this.storeValue('', parseInt(data.storage, 10), varName, cache);
               return; // Exit the function if nested content is not found
             }
@@ -85,7 +84,6 @@ module.exports = {
 
           this.storeValue(currentContent, parseInt(data.storage, 10), varName, cache);
         } else {
-          console.warn(`Content not found for title "${title}"`);
           this.storeValue('', parseInt(data.storage, 10), varName, cache);
         }
       } else {
